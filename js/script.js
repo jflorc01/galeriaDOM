@@ -1,7 +1,15 @@
 // Datos iniciales
 const bares = [
-    { nombre: 'Bar A', tapa: 'Tapa A', imagen: 'img/AlitasPollo-1080.webp', favorito: false },
-    { nombre: 'Bar B', tapa: 'Tapa B', imagen: 'img/patatasBravas-1080.webp', favorito: false },
+    { nombre: 'Bar La Catedral', tapa: 'Tapa de tortilla de patatas con pimiento y mayonesa.', imagen: 'img/Tortilla-1080.webp', favorito: false },
+    { nombre: 'Taberna El rincón', tapa: 'Tapa de pizza de jamón y queso con base de arroz.', imagen: 'img/Pizza-1080.webp', favorito: false },
+    { nombre: 'Mesón El Húmedo', tapa: 'Tapa de patatas bravas con pimentón.', imagen: 'img/patatasBravas-1080.webp', favorito: false },
+    { nombre: 'Bar La Plaza', tapa: 'Tapa de orejas de cerdo guisadas.', imagen: 'img/Oreja-1080.webp', favorito: false },
+    { nombre: 'Taberna El Camino', tapa: 'Tapa de morcilla con queso de cabra.', imagen: 'img/Morcilla-1080.webp', favorito: false },
+    { nombre: 'Bar La Cuevina', tapa: 'Tapa de patatas con huevo y jamón.', imagen: 'img/huevos-1080.webp', favorito: false },
+    { nombre: 'La Botica del Vino', tapa: 'Croqueta de Cecina con Corazón de Queso de Valdeón y Miel.', imagen: 'img/croquetas-1080.webp', favorito: false },
+    { nombre: 'Bar Las Médulas', tapa: 'Patatas de bastón con salsa rosa.', imagen: 'img/bravas3-1080.webp', favorito: false },
+    { nombre: 'El Yelmo y la Caña', tapa: 'Bocadillo de jalapeños.', imagen: 'img/bocadilloJalapenos-1080.webp', favorito: false },
+    { nombre: 'La Catedral del Tapeo', tapa: 'Montadito de albóndigas.', imagen: 'img/albondiga-1080.webp', favorito: false },
   ];
   
   const galeria = document.getElementById('galeria');
