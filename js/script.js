@@ -23,17 +23,17 @@ const bares = [
   
     baresFiltrados.forEach((bar, indice) => {
       const tarjeta = document.createElement('div');
-      tarjeta.classList.add('tarjeta');
+      tarjeta.classList.add('card');
       tarjeta.innerHTML = `
-        <img src="${bar.imagen || 'img/placeholder.jpg'}" alt="${bar.tapa}">
-        <div class="tarjeta-contenido">
+        <img class="card-img-top" src="${bar.imagen || 'img/placeholder.jpg'}" alt="${bar.tapa}">
+        <div class="card-body">
           <h3>${bar.nombre}</h3>
           <p>${bar.tapa}</p>
         </div>
         <div class="tarjeta-botones">
-          <button onclick="alternarFavorito(${indice})">${bar.favorito ? '💖' : '🤍'}</button>
-          <button onclick="editarBar(${indice})">Editar</button>
-          <button onclick="eliminarBar(${indice})">Eliminar</button>
+          <button class="btn btn-light" onclick="alternarFavorito(${indice})">${bar.favorito ? `<img src='img/heart-fill.svg'>` : `<img src='img/heart.svg'>`}</button>
+          <button class="btn btn-light" onclick="editarBar(${indice})">Editar</button>
+          <button class="btn btn-light" onclick="eliminarBar(${indice})">Eliminar</button>
         </div>
       `;
       galeria.appendChild(tarjeta);
@@ -85,4 +85,5 @@ const bares = [
   
   // Renderizado inicial
   imprimirGaleria();
+  
   
