@@ -20,14 +20,12 @@ const botonFiltrarFavoritos = document.getElementById('botonFiltrarFavoritos');
 function imprimirGaleria(filtrarFavoritos = false) {
   galeria.innerHTML = '';
   const baresFiltrados = filtrarFavoritos ? bares.filter(bar => bar.favorito) : bares;
-  
-  // TODO: Ajustar proporción imágenes
 
   baresFiltrados.forEach((bar, indice) => {
     const tarjeta = document.createElement('div');
     tarjeta.classList.add('card');
     tarjeta.innerHTML = `
-      <div class="ratio ratio-16x9 overflow-hidden">
+      <div class="ratio ratio-4x3 overflow-hidden">
         <img class="card-img-top" src="${bar.imagen || 'img/placeholder.jpg'}" alt="${bar.tapa}">
       </div>
       <div class="card-body" id="tarjeta-${indice}">
@@ -73,7 +71,6 @@ function editarBar(indice) {
   `;
 
   botones.innerHTML = `
-    <button class="btn btn-light" onclick="alternarFavorito(${indice})">${bar.favorito ? `<img src='img/heart-fill.svg'>` : `<img src='img/heart.svg'>`}</button>
     <button class="btn btn-dark" onclick="guardarEdicion(${indice})">Guardar</button>
     <button class="btn btn-light" onclick="eliminarBar(${indice})">Eliminar</button>
   `;
@@ -91,17 +88,6 @@ function guardarEdicion(indice) {
     imprimirGaleria();
   }
 }
-
-
-//   const nuevoNombre = prompt('Nuevo nombre del bar:', bares[indice].nombre);
-//   const nuevaTapa = prompt('Nuevo nombre de la tapa:', bares[indice].tapa);
-
-//   if (nuevoNombre && nuevaTapa) {
-//     bares[indice].nombre = nuevoNombre;
-//     bares[indice].tapa = nuevaTapa;
-//     imprimirGaleria();
-//   }
-// }
 
 // Función para eliminar un bar
 function eliminarBar(indice) {
