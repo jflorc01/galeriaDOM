@@ -21,6 +21,13 @@ function imprimirGaleria(filtrarFavoritos = false) {
   galeria.innerHTML = '';
   const baresFiltrados = filtrarFavoritos ? bares.filter(bar => bar.favorito) : bares;
 
+  if(baresFiltrados.length === 0) {
+    galeria.innerHTML = `<p class="text-center display-6 text-danger w-100">No hay bares para mostrar.</p>`;
+    galeria.classList.add('d-flex', 'justify-content-center');
+  }else{
+    galeria.classList.remove('d-flex', 'justify-content-center');
+  }
+
   baresFiltrados.forEach((bar, indice) => {
     const tarjeta = document.createElement('div');
     tarjeta.classList.add('card');
@@ -33,9 +40,11 @@ function imprimirGaleria(filtrarFavoritos = false) {
         <p>${bar.tapa}</p>
       </div>
       <div id="botones-${indice}" class="tarjeta-botones">
-        <button class="btn btn-light" onclick="alternarFavorito(${indice})">${bar.favorito ? `<img src='img/heart-fill.svg'>` : `<img src='img/heart.svg'>`}</button>
-        <button class="btn btn-light" onclick="editarBar(${indice})">Editar</button>
-        <button class="btn btn-light" onclick="eliminarBar(${indice})">Eliminar</button>
+        ${filtrarFavoritos ? '' : 
+          `<button class="btn btn-light" onclick="alternarFavorito(${indice})">${bar.favorito ? `<img src='img/heart-fill.svg'>` : `<img src='img/heart.svg'>`}</button>
+          <button class="btn btn-light" onclick="editarBar(${indice})">Editar</button>
+          <button class="btn btn-light" onclick="eliminarBar(${indice})">Eliminar</button>
+          `}
       </div>
     `;
     galeria.appendChild(tarjeta);
@@ -85,6 +94,7 @@ function guardarEdicion(indice) {
   if (nuevoNombre && nuevaTapa) {
     bares[indice].nombre = nuevoNombre;
     bares[indice].tapa = nuevaTapa;
+
     imprimirGaleria();
   }
 }
@@ -97,7 +107,7 @@ function eliminarBar(indice) {
 
 // Función para filtrar favoritos
 botonFiltrarFavoritos.addEventListener('click', () => {
-  const mostrandoTodos = botonFiltrarFavoritos.textContent === 'Mostrar Todos';
+  const mostrandoTodos = (botonFiltrarFavoritos.textContent === 'Mostrar Todos');
   imprimirGaleria(!mostrandoTodos);
   botonFiltrarFavoritos.textContent = mostrandoTodos ? 'Mostrar Favoritos' : 'Mostrar Todos';
 });
