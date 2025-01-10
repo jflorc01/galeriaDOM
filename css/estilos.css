@@ -95,6 +95,29 @@ body {
     padding: 10px;
   }
   
+  .slider_container {
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 25px;
+}
+  
+.slider {
+  display: flex;
+  height: 500px;
+  transition: transform 0.5s ease-in-out;
+  animation: sliding 15s infinite;
+}
+
+.slide_img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
   footer {
     grid-area: footer;
     padding: 1rem;

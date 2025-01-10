@@ -34,7 +34,28 @@
         <button type="submit">Añadir</button>
       </form>
     </section>
-
+    
+    <div id="carouselExampleInterval" class="carousel slide slider_container" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active slider" data-bs-interval="5000">
+          <img src="img/AlitasPollo-1080.webp" class="d-block w-100 slide_img" alt="...">
+        </div>
+        <div class="carousel-item slider" data-bs-interval="5000">
+          <img src="img/patatasBravas2-1080.webp" class="d-block w-100 slide_img" alt="...">
+        </div>
+        <div class="carousel-item slider" data-bs-interval="5000">
+          <img src="img/TortillaPro-1080.webp" class="d-block w-100 slide_img" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
     <section class="seccion-galeria">
       <h2>Galería de Tapas</h2>
       <button id="botonFiltrarFavoritos">Mostrar Favoritos</button>
@@ -53,5 +74,6 @@
     </div>
   </footer>
   <script src="js/script.js"></script>
+  <script src="jsBootstrap/bootstrap.bundle.js"></script>
 </body>
 </html>
