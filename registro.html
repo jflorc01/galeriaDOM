@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
+  <body>
+    <h1>Regístrate</h1>
+    <form method="post" action=''>
+      <fieldset>
+        
+        <label for="nombre">Nombre: (obligatorio)<br><br>
+          <span id="error-nombre"></span>
+          <input id="nombre" name="nombre" type="text" required />
+        </label>
+        
+        <label for="apellido1">Primer apellido: (obligatorio)<br><br>
+          <span id="error-apellido1"></span>
+          <input id="apellido1" name="apellido1" type="text" required />
+        </label>
+
+        <label for="apellido2">Segundo apellido: <br><br>
+          <input id="apellido2" name="apellido2" type="text" />
+        </label>
+        
+        <label for="email">Email: (obligatorio)<br><br>
+          <span id="error-email"></span>
+          <input id="email" name="email" type="text"  required />
+        </label>
+
+        <label for="password">Contraseña: (obligatorio)<br><br>
+          <span id="error-password"></span>
+          <input id="password" name="password" type="password"  required />
+        </label>
+
+        <label for="password2">Confirma la contraseña: (obligatorio)<br><br>
+          <span id="error-confirm"></span>
+          <input id="password2" name="password2" type="password"  required />
+        </label>
+      </fieldset>
+      
+      <label for="terms-and-conditions">
+        <input class="inline" id="terms-and-conditions" type="checkbox" required name="terms-and-conditions" /> Aceptar la política de privacidad
+      </label>
+      <span id="error-privacidad"></span>
+      <input type="submit" value="Registrarse" id="btnRegistrar" name="btnRegistrar" />
+    </form>
+    <p class="lineaRegistro">¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí.</a></p>
+    <p class="lineaRegistro"><a href="index.html">Volver a la galería</a></p>
+    <script src="js/registro.js"></script>
+  </body>
+</html>

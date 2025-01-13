@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Inicio de sesión</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css" />
+    
+  </head>
+  <body>
+    <h1>Inicio de sesión</h1>
+    <form id="login" method="post" action='#'>
+      <fieldset>
+        <label for="email">Email: <input id="email" name="email" type="text" required /></label>
+        <label for="password">Contraseña: <input id="password" name="password" type="password" required /></label>
+      </fieldset>
+      <input type="submit" value="Iniciar sesión" id="btnLogin" />
+    </form>
+    <p class="lineaRegistro">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>.</p>
+    <p class="lineaRegistro"><a href="index.html">Volver a la galería</a></p>
+    <script src="js/login.js"></script>
+  </body>
+</html>

@@ -31,6 +31,10 @@ body {
     color: #333;
     text-decoration: none;
   }
+
+  .home-link:hover {
+    color: inherit;
+  }
   
   .buscador {
     display: flex;
@@ -129,3 +133,7 @@ body {
     width: 32px;
     height: 32px;
   }
+
+.checkFiltrar:hover{
+  cursor: 
+}

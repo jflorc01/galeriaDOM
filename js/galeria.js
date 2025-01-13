@@ -15,6 +15,7 @@ const bares = [
 const galeria = document.getElementById('galeria');
 const formularioAñadirBar = document.getElementById('formularioAñadirBar');
 const botonFiltrarFavoritos = document.getElementById('botonFiltrarFavoritos');
+const checkFiltrar = document.getElementById("checkFiltrar");
 
 // Función para generar las tarjetas en la galería
 function imprimirGaleria(filtrarFavoritos = false) {
@@ -106,11 +107,16 @@ function eliminarBar(indice) {
 }
 
 // Función para filtrar favoritos
-botonFiltrarFavoritos.addEventListener('click', () => {
-  const mostrandoTodos = (botonFiltrarFavoritos.textContent === 'Mostrar Todos');
-  imprimirGaleria(!mostrandoTodos);
-  botonFiltrarFavoritos.textContent = mostrandoTodos ? 'Mostrar Favoritos' : 'Mostrar Todos';
-});
+// botonFiltrarFavoritos.addEventListener('click', () => {
+//   const mostrandoTodos = (botonFiltrarFavoritos.textContent === 'Mostrar Todos');
+//   imprimirGaleria(!mostrandoTodos);
+//   botonFiltrarFavoritos.textContent = mostrandoTodos ? 'Mostrar Favoritos' : 'Mostrar Todos';
+// });
+
+// Función para filtrar favoritos
+checkFiltrar.addEventListener('click', () => {
+  imprimirGaleria(checkFiltrar.checked);
+})
 
 // Renderizado inicial
 imprimirGaleria();
