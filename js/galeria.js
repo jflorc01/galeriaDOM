@@ -34,7 +34,7 @@ function imprimirGaleria(filtrarFavoritos = false) {
     tarjeta.classList.add('card');
     tarjeta.innerHTML = `
       <div class="ratio ratio-4x3 overflow-hidden">
-        <img class="card-img-top" src="${bar.imagen || 'img/placeholder.jpg'}" alt="${bar.tapa}">
+        <img loading='lazy' class="card-img-top" src="${bar.imagen || 'img/placeholder.jpg'}" alt="${bar.tapa}">
       </div>
       <div class="card-body" id="tarjeta-${indice}">
         <h3>${bar.nombre}</h3>
