@@ -5,7 +5,6 @@ body {
   }
   
   header {
-    grid-area: header;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -114,7 +113,6 @@ body {
 }
 
   footer {
-    grid-area: footer;
     padding: 1rem;
     text-align: center;
     background: #333;
