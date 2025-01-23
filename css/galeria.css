@@ -137,3 +137,8 @@ body {
     justify-content: center;
     gap: 0.5rem;
   }
+
+  #btnAdd:hover{
+    color: white;
+    background-color: #333;
+  }

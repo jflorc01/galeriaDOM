@@ -19,8 +19,12 @@
     <h1>Inicio de sesión</h1>
     <form id="login" method="post" action='#'>
       <fieldset>
-        <label for="email" >Email: <input id="email" name="email" type="text" required /></label>
-        <label for="password">Contraseña: <input id="password" name="password" type="password" required /></label>
+        <label for="email" >Email: <input id="email" name="email" type="text" required />
+          <span id="error-email"></span>
+        </label>
+        <label for="password">Contraseña: <input id="password" name="password" type="password" required />
+          <span id="error-pass"></span>
+        </label>
       </fieldset>
       <input type="submit" value="Iniciar sesión" id="btnLogin" class="btn"/>
     </form>

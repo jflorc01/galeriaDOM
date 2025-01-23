@@ -2,6 +2,10 @@
 const emailValido = "email@ejemplo.com";
 const passValida = "P@ssw0rd!";
 
+const errorNombre = document.getElementById("error-email");
+const errorPass = document.getElementById("error-pass");
+const alertaLogin = document.getElementById("alertaLogin");
+
 document.getElementById('btnLogin').addEventListener('click', function (event) {
   event.preventDefault();
   
@@ -9,15 +13,17 @@ document.getElementById('btnLogin').addEventListener('click', function (event) {
   const password = document.getElementById('password').value;
 
   // Comprobamos que los campos no estén vacíos
-  if (!email) {
-    alert("El email es obligatorio.");
+  if(!email || !password){
+    if (!email) {
+      errorNombre.textContent = "El email es obligatorio."
+    }
+  
+    if (!password) {
+      errorPass.textContent = "La contraseña es obligatoria.";
+    }
+    document.getElementById('login').reset();
     return;
-  }
-
-  if (!password) {
-    alert("La contraseña es obligatoria.");
-    return;
-  }
+  }  
 
   // Validamos los datos de inicio de sesión
   if (email === emailValido && password === passValida) {

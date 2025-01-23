@@ -14,6 +14,7 @@ const bares = [
   { id: generarId(), nombre: 'Bar La Plaza', tapa: 'Tapa de orejas de cerdo guisadas.', imagen: 'img/Oreja-1080.webp', favorito: false },
   { id: generarId(), nombre: 'Taberna El Camino', tapa: 'Tapa de morcilla con queso de cabra.', imagen: 'img/Morcilla-1080.webp', favorito: false },
   { id: generarId(), nombre: 'Bar La Cuevina', tapa: 'Tapa de patatas con huevo y jamón.', imagen: 'img/huevos-1080.webp', favorito: false },
+  { id: generarId(), nombre: 'Bar Celona', tapa: 'Pan con tomate', imagen: 'img/panTomate.webp', favorito: false},
   { id: generarId(), nombre: 'La Botica del Vino', tapa: 'Croqueta de Cecina con Corazón de Queso de Valdeón y Miel.', imagen: 'img/croquetas-1080.webp', favorito: false },
   { id: generarId(), nombre: 'Bar Las Médulas', tapa: 'Patatas de bastón con salsa rosa.', imagen: 'img/bravas3-1080.webp', favorito: false },
   { id: generarId(), nombre: 'El Yelmo y la Caña', tapa: 'Bocadillo de jalapeños.', imagen: 'img/bocadilloJalapenos-1080.webp', favorito: false },
