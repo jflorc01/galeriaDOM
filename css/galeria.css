@@ -132,4 +132,8 @@ body {
     height: 32px;
   }
 
-
+  .btnPaginas{
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
