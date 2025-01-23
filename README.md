@@ -53,12 +53,16 @@ Para el login, se han definido un usuario y contraseña válidos para probar su 
 
 1-	Añadir el uso de paginación a la galería de tapas:
     La galería de tapas no tiene limite a la hora de mostrar las tapas y esto puede afectar al rendimiento de la página, utilizando un sistema de paginación solucionamos este problema 
+
 2-	Añadir un botón al buscador:
-    Al no tener un botón el buscador puede confundir a los usuarios, colocando uno para dar el control al usuario evitamos este problema 
+    Al no tener un botón el buscador puede confundir a los usuarios, colocando uno para dar el control al usuario evitamos este problema
+
 3-	Añadir visibilidad al error en la pantalla de inicio de sesión:
     Añadiendo un comentario de error al inicio de sesión solucionamos que los usuarios sepan que error están cometiendo 
+
 4-	Añadir un comentario que especifique se ha creado bien una nueva tapa: 
     Añadiendo un comentario al añadir una tapa correctamente informamos al administrador de que se ha guardado correctamente evitando confusiones:
+    
 5-	Diseño del botón de añadir: 
     añadiendo un diseño que interactúe con el usuario mejoramos el atractivo de la página.
 
