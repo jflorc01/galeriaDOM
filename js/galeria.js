@@ -169,4 +169,24 @@ checkFiltrar.addEventListener('change', () => {
   imprimirGaleria(checkFiltrar.checked);
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  mostrarMensajeBienvenida();
+});
+
+function mostrarMensajeBienvenida() {
+  const mensajeBienvenida = document.getElementById('mensaje-bienvenida');
+  const horaActual = new Date().getHours();
+  let mensaje = '';
+
+  if (horaActual < 12) {
+    mensaje = '¡Buenos días! Bienvenido al Concurso de Tapas.';
+  } else if (horaActual < 18) {
+    mensaje = '¡Buenas tardes! Disfruta de nuestro Concurso de Tapas.';
+  } else {
+    mensaje = '¡Buenas noches! Explora las mejores tapas en nuestro Concurso.';
+  }
+
+  mensajeBienvenida.innerHTML = `<h1>${mensaje}</h1>`;
+}
+
 imprimirGaleria();
