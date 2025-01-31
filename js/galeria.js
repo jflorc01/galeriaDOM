@@ -4,11 +4,13 @@ const formularioAñadirBar = document.getElementById('formularioAñadirBar');
 const listaPaginas = document.getElementById('listaPaginas');
 const TAPAS_POR_PAGINA = 6;
 let totalPaginas = 0;
+let rol = "invitado";
+let busquedaActual = "";
 
 // Obtener todas las tapas para calcular el total de páginas
-async function obtenerTotalTapas() {
+async function obtenerTotalTapas(nombre="") {
   try {
-    const respuesta = await fetch(`${API_URL}/tapas/`);
+    const respuesta = await fetch(`${API_URL}/tapas/?nombre=${nombre}`);
     const tapas = await respuesta.json();
     totalPaginas = Math.ceil(tapas.length / TAPAS_POR_PAGINA);
     generarPaginacion(totalPaginas);
@@ -18,9 +20,9 @@ async function obtenerTotalTapas() {
 }
 
 // Obtener la lista de tapas desde la API con paginación
-async function obtenerTapas(pagina = 1) {
+async function obtenerTapas(pagina = 1, nombre = "") {
   try {
-    const respuesta = await fetch(`${API_URL}/tapas/?pag=${pagina}`);
+    const respuesta = await fetch(`${API_URL}/tapas/?pag=${pagina}&nombre=${nombre}`);
     const tapas = await respuesta.json();
     imprimirGaleria(tapas);
   } catch (error) {
@@ -41,15 +43,15 @@ async function imprimirGaleria(tapas) {
     tarjeta.classList.add('card');
     tarjeta.innerHTML = `
       <div class='ratio ratio-4x3 overflow-hidden'>
-        <img loading='lazy' class='card-img-top' src='${'img/' + tapa.id_tapa + '.webp' || 'img/placeholder.jpg'}' alt='${tapa.tapa}'>
+        <img loading='lazy' class='card-img-top' src='${'img/' + tapa.id_tapa + '.webp' || 'img/placeholder.jpg'}' alt='${tapa.nombre}'>
       </div>
       <div class='card-body'>
         <h3>${tapa.nombre_bar}</h3>
         <p>${tapa.nombre}</p>
       </div>
       <div class='tarjeta-botones'>
-        <button class='btn btn-light' onclick='editarBar(${tapa.id})'>Editar</button>
-        <button class='btn btn-light' onclick='eliminarBar(${tapa.id})'>Eliminar</button>
+        <button class='btn btn-light' onclick="alertaIngredientes('${tapa.nombre}', '${tapa.ingredientes}')">Ingredientes</button>
+        <!-- <button class='btn btn-light' onclick='alert("hola")'>Eliminar</button> -->
       </div>
     `;
     galeria.appendChild(tarjeta);
@@ -66,10 +68,27 @@ function generarPaginacion(totalPaginas, paginaActual = 1) {
     if (i === paginaActual) {
       boton.classList.add('active');
     }
-    boton.addEventListener('click', () => obtenerTapas(i));
+    boton.addEventListener('click', () => obtenerTapas(i, busquedaActual));
     listaPaginas.appendChild(boton);
   }
 }
+
+// Aparece una alerta de SweetAlert con los ingredientes de la tapa
+function alertaIngredientes(nombre, ingredientes){
+  Swal.fire({
+    title: nombre,
+    text: `Ingredientes: ${ingredientes}`,
+    icon: "info"
+  });
+}
+
+// Buscador
+document.getElementById('formularioBusqueda').addEventListener('submit', (e) => {
+  e.preventDefault();
+  busquedaActual = document.getElementById('inputBusqueda').value;
+  obtenerTotalTapas(busquedaActual);
+  obtenerTapas(1, busquedaActual);
+});
 
 // Función principal para inicializar la aplicación
 async function main() {
@@ -79,45 +98,3 @@ async function main() {
 
 // Llamar a la función principal
 main();
-
-// Agregar un nuevo bar
-// formularioAñadirBar.addEventListener('submit', async (e) => {
-//   e.preventDefault();
-//   const nombreBar = document.getElementById('nombreBar').value;
-//   const nombreTapa = document.getElementById('nombreTapa').value;
-//   const urlImagen = document.getElementById('urlImagen').value;
-
-//   try {
-//     // Código para agregar un nuevo bar
-//   } catch (error) {
-//     console.error('Error al agregar el bar:', error);
-//   }
-// });
-
-// // Eliminar un bar
-// async function eliminarBar(id) {
-//   try {
-//     await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-//     obtenerBares();
-//   } catch (error) {
-//     console.error('Error al eliminar el bar:', error);
-//   }
-// }
-
-// // Editar un bar
-// async function editarBar(id) {
-//   const nuevoNombre = prompt('Nuevo nombre del bar:');
-//   const nuevaTapa = prompt('Nueva descripción de la tapa:');
-//   if (!nuevoNombre || !nuevaTapa) return;
-
-//   try {
-//     await fetch(`${API_URL}/${id}`, {
-//       method: 'PUT',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ nombre: nuevoNombre, tapa: nuevaTapa })
-//     });
-//     obtenerBares();
-//   } catch (error) {
-//     console.error('Error al editar el bar:', error);
-//   }
-// }
