@@ -12,21 +12,15 @@ El carrusel de imágenes que está al principio del sitio está hecho con Bootst
 
 <div style='text-align: center;'><img src="img/readme/tarjetas.png"></div>
 
-La información de los diferentes bares está organizada en tarjetas, que incluyen el nombre del bar, una imagen y una breve descripción de cada tapa. También permite guardar en favoritos los bares para posteriormente aplicar el filtro que solo muestra los bares favoritos.
+La información de los diferentes bares está organizada en tarjetas, que incluyen el nombre del bar, una imagen y una breve descripción de cada tapa. 
 
 Las tarjetas se generan desde el javaScript, donde hay un array con toda la información a mostrar de cada bar al inicio. 
 
-### Añadir bar
 
-En la página se ofrece la opción de añadir tantos bares como se desee. Para ello, hay un formulario debajo del header, donde si se introduce el nombre del bar, el nombre de la tapa y el link de una imagen (opcional), se creará una tarjeta nueva con ese bar. 
 
-<div style='text-align: center;'><img src="img/readme/anyadir.png"></div>
-<div style='text-align: center;'><img src="img/readme/anyadido.png"></div>
+### ingredientes
 
-### Editar y eliminar
-
-Para editar la información de una tapa, se cambian el nombre y la descripción a campos de texto editables. Una vez se haya editado, se guarda y se muestra en pantalla
-En el caso de la eliminación, solamente hay que pulsar el botón "Eliminar" y desaparecerá de la página.
+Al pulsar el boton de ingredientes mostrara una ventana emergente que los especifique.
 
 ### Registro y login
 
