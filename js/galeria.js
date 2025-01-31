@@ -63,7 +63,7 @@ function imprimirGaleria(filtrarFavoritos = false) {
         <p>${bar.tapa}</p>
       </div>
       <div class="tarjeta-botones">
-        <button class="btn btn-light" onclick="alternarFavorito('${bar.id}')">${bar.favorito ? `<img src='img/heart-fill.svg'>` : `<img src='img/heart.svg'>`}</button>
+        <button class="btn btn-light" onclick="alternarFavorito('${bar.id}')" name='boton añadir a favoritos' >${bar.favorito ? `<img src='img/heart-fill.svg' alt='boton añadir a favoritos'>` : `<img src='img/heart.svg' alt='boton añadir a favoritos'>`}</button>
         <button class="btn btn-light" onclick="editarBar('${bar.id}')">Editar</button>
         <button class="btn btn-light" onclick="eliminarBar('${bar.id}')">Eliminar</button>
       </div>

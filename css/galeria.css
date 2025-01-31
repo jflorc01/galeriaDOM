@@ -16,7 +16,14 @@ body {
   header img {
     max-height: 50px;
   }
-  
+  .button{
+    height: 50px;
+    width: 120px;
+    
+  }
+  .separacion{
+    grid-column-gap: 10px;
+  }
   
   .logo {
     display: flex;
