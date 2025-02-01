@@ -1,3 +1,19 @@
+### Manual para la API
+
+Se utilizará XAMPP para el servidor y la base de datos.
+
+En el directorio datos, está el script SQL con la base de datos utilizada por la API. En el phpMyAdmin se importará dicho script.
+
+Una vez se tenga en marcha el servidor y se tenga la base de datos importada, copiamos la carpeta "concursoTapas" en la carpeta "www" que utiliza XAMPP.
+
+Como de momento en el cliente no funciona la parte de los usuarios, no se requiere la instalación de firebase con composer. En caso de querer hacerlo aún así, bastaría con abrir una terminal, colocarse en el directorio principal de la API (concursoTapas), y ejecutar el comando `composer install`.
+
+Se puede probar que la API funciona correctamente si al acceder a [http://localhost/www/concursoTapas/api/tapas/](http://localhost/www/concursoTapas/api/tapas/) se muestra un JSON con las tapas de la base de datos.
+
+Si no se ha podido copiar la API en esa ruta exacta, se deberá de ajustar el archivo `galeria.js` con la URL correcta.
+
+<div style="text-align: center;"><img src="img/readme/API.png"></div>
+
 # Galería para el concurso de tapas
 
 <div style="text-align: center;"><img src="img/readme/pagina.png"></div>
@@ -15,8 +31,6 @@ El carrusel de imágenes que está al principio del sitio está hecho con Bootst
 La información de los diferentes bares está organizada en tarjetas, que incluyen el nombre del bar, una imagen y una breve descripción de cada tapa. 
 
 Las tarjetas se generan desde el javaScript, donde hay un array con toda la información a mostrar de cada bar al inicio. 
-
-
 
 ### ingredientes
 
