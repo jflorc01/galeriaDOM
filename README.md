@@ -14,6 +14,8 @@ Si no se ha podido copiar la API en esa ruta exacta, se deberá de ajustar el ar
 
 <div style="text-align: center;"><img src="img/readme/API.png"></div>
 
+Por el momento faltan algunas funciones importantes pero en el código JavaScript se utiliza Fetch para recoger los datos en JSON de las tapas mostradas, se utiliza también Async/Await y se carga la Galería con AJAX. Próximamente añadiremos las funcionalidades que hemos tenido que quitar de la versión anterior que utilizaba solamente DOM. Para ver esa versión, haz clic [aquí](https://jflorc01.github.io/galeriaDOM/).
+
 # Galería para el concurso de tapas
 
 <div style="text-align: center;"><img src="img/readme/pagina.png"></div>
