@@ -1,132 +1,144 @@
 {
   "tapas": [
     {
-      "id": 1,
+      "id": "1",
       "bar": "Bar La Catedral",
       "tapa": "Tapa de tortilla de patatas con pimiento y mayonesa.",
       "imagen": "img/Tortilla-1080.webp",
       "favorito": false
     },
     {
-      "id": 2,
+      "id": "2",
       "bar": "Taberna El rincón",
       "tapa": "Tapa de pizza de jamón y queso con base de arroz.",
       "imagen": "img/Pizza-1080.webp",
       "favorito": false
     },
     {
-      "id": 3,
+      "id": "3",
       "bar": "Mesón El Húmedo",
       "tapa": "Tapa de patatas bravas con pimentón.",
       "imagen": "img/patatasBravas-1080.webp",
       "favorito": false
     },
     {
-      "id": 4,
+      "id": "4",
       "bar": "Bar La Plaza",
       "tapa": "Tapa de orejas de cerdo guisadas.",
       "imagen": "img/Oreja-1080.webp",
       "favorito": false
     },
     {
-      "id": 5,
+      "id": "5",
       "bar": "Taberna El Camino",
       "tapa": "Tapa de morcilla con queso de cabra.",
       "imagen": "img/Morcilla-1080.webp",
       "favorito": false
     },
     {
-      "id": 6,
+      "id": "6",
       "bar": "Bar La Cuevina",
       "tapa": "Tapa de patatas con huevo y jamón.",
       "imagen": "img/huevos-1080.webp",
       "favorito": false
     },
     {
-      "id": 7,
+      "id": "7",
       "bar": "Bar Celona",
       "tapa": "Pan con tomate",
       "imagen": "img/panTomate.webp",
       "favorito": false
     },
     {
-      "id": 8,
+      "id": "8",
       "bar": "La Botica del Vino",
       "tapa": "Croqueta de Cecina con Corazón de Queso de Valdeón y Miel.",
       "imagen": "img/croquetas-1080.webp",
       "favorito": false
     },
     {
-      "id": 9,
+      "id": "9",
       "bar": "Bar Las Médulas",
       "tapa": "Patatas de bastón con salsa rosa.",
       "imagen": "img/bravas3-1080.webp",
       "favorito": false
     },
     {
-      "id": 10,
+      "id": "10",
       "bar": "El Yelmo y la Caña",
       "tapa": "Bocadillo de jalapeños.",
       "imagen": "img/bocadilloJalapenos-1080.webp",
       "favorito": false
     },
     {
-      "id": 11,
+      "id": "11",
       "bar": "La Catedral del Tapeo",
       "tapa": "Montadito de albóndigas.",
       "imagen": "img/albondiga-1080.webp",
       "favorito": false
     },
     {
-      "id": 12,
+      "id": "12",
       "bar": "Bar los lobos",
       "tapa": "Alitas de pollo.",
       "imagen": "img/AlitasPollo-1080.webp",
       "favorito": false
     },
     {
-      "id": 13,
+      "id": "13",
       "bar": "Casa Julián",
       "tapa": "Patatas bravas.",
       "imagen": "img/patatasBravas2-1080.webp",
       "favorito": false
     },
     {
-      "id": 14,
+      "id": "14",
       "bar": "Bar Donde Benito",
       "tapa": "Tortilla de patatas con pimiento rojo.",
       "imagen": "img/TortillaPro-1080.webp",
       "favorito": false
     },
     {
-      "id": 15,
+      "id": "15",
       "bar": "Tony's",
       "tapa": "Bocadillo de panceta",
       "imagen": "img/BocadilloBacon.webp",
       "favorito": false
     },
     {
-      "id": 16,
+      "id": "16",
       "bar": "Bar-barie",
       "tapa": "Pulpo cocido y a la brasa con patata.",
       "imagen": "img/pulpo.webp",
       "favorito": false
     }
   ],
-  "usuarios":[
+  "usuarios": [
     {
-      "id": 1,
+      "id": "1",
       "user": "admin",
       "pass": "admin123",
       "rol": "admin",
-      "favoritos": [2, 3, 6, 12, 15]
+      "favoritos": [
+        3,
+        6,
+        12,
+        15
+      ],
+      "email": "admin@admin.com"
     },
     {
-      "id": 2,
+      "id": "2",
       "user": "pedro22",
       "pass": "Hola22",
       "rol": "user",
-      "favoritos": [1, 2, 4, 10, 14]
+      "favoritos": [
+        2,
+        4,
+        10,
+        14
+      ],
+      "email": "pedro22@gmail.com"
     }
   ]
 }

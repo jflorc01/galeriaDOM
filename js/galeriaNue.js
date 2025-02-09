@@ -5,6 +5,7 @@ const formularioAñadirBar = document.getElementById('formularioAñadirBar');
 const checkFiltrar = document.getElementById("checkFiltrar");
 const listaPaginas = document.getElementById("listaPaginas");
 
+let tapas = [];
 let paginaActual = 1;
 
 if(!sessionStorage.getItem("rol")){
@@ -15,17 +16,21 @@ let rol = sessionStorage.getItem("rol");
 async function obtenerTotalTapas(tapa="") {
     try {
       const respuesta = await fetch(`${API_URL}tapas/?tapa=${tapa}`);
-      const tapas = await respuesta.json();
+      tapas = await respuesta.json();
       // totalPaginas = Math.ceil(tapas.length / TAPAS_POR_PAGINA);
-      console.log(tapas);
       imprimirGaleria(tapas);
+      // console.log(rol);
+      // ocultarBotones(rol);
+      
+      
     } catch (error) {
       console.error('Error al obtener el total de tapas:', error);
     }
   }
+  obtenerTotalTapas();
 
-let tapas = obtenerTotalTapas();
 console.log(tapas);
+// console.log(tapas);
 
 // function imprimirGaleria(filtrarFavoritos = false, bares) {
 //   galeria.innerHTML = '';
@@ -85,10 +90,39 @@ function imprimirGaleria(tapas){
         <p>${tapa.tapa}</p>
       </div>
       <div class='tarjeta-botones'>
+      <div class="tarjeta-botones gap-3">
+         <button class="btn btn-light fav" onclick="alternarFavorito('${tapa.id}')" name='boton añadir a favoritos' >${tapa.favorito ? `<img src='img/heart-fill.svg' alt='boton añadir a favoritos'>` : `<img src='img/heart.svg' alt='boton añadir a favoritos'>`}</button>
+         <button class="btn btn-light edit" onclick="editarBar('${tapa.id}')">Editar</button>
+         <button class="btn btn-light delete" onclick="eliminarBar('${tapa.id}')">Eliminar</button>
+       </div>
         <!-- <button class='btn btn-light' onclick="alertaIngredientes('${tapa.nombre}', '${tapa.ingredientes}')">Ingredientes</button> -->
         <!-- <button class='btn btn-light' onclick='alert("hola")'>Eliminar</button> -->
       </div>
     `;
     galeria.appendChild(tarjeta);
   }
+}
+
+function ocultarBotones(rol){
+  let btnsEditar = document.getElementsByClassName('edit');
+  let btnsEliminar = document.getElementsByClassName('delete');
+  let btnsFav = document.getElementsByClassName('fav');
+
+  if(rol === "invitado"){
+    for(let i = 0; i < btnsEditar.length; i++){
+      btnsEditar[i].setAttribute('hidden', "");
+      btnsEliminar[i].setAttribute('hidden', "");
+      btnsFav[i].setAttribute('hidden', "");
+    }
+  }else if(rol === "user"){
+    for(let i = 0; i < btnsEditar.length; i++){
+      btnsEditar[i].setAttribute('hidden', "");
+      btnsEliminar[i].setAttribute('hidden', "");
+    }
+  }
+}
+
+function alternarFavorito(id){
+  
+
 }
