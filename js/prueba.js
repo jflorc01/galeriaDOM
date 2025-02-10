@@ -3,9 +3,10 @@ const TAPAS_POR_PAGINA = 12;
 const galeria = document.getElementById('galeria');
 const listaPaginas = document.getElementById("listaPaginas");
 const checkFiltrar = document.getElementById("checkFiltrar");
+const iniciadoSesion = document.getElementById("iniciadoSesion");
 
 // sessionStorage.clear;
-sessionStorage.setItem("user", "admin");
+// sessionStorage.setItem("user", "pedro22");
 let tapas = [];
 let paginaActual = 1;
 let usuarioActual = null;
@@ -16,6 +17,14 @@ async function obtenerUsuario() {
     if (!user) return;
     const response = await fetch(`${API_URL}usuarios?user=${user}`);
     const data = await response.json();
+    if(data[0]){
+        iniciadoSesion.innerHTML = `
+            <h4>Iniciado sesión como ${data[0].user}</h4>
+            <button class="btn btn-dark" onclick="cerrarSesion()">Cerrar sesión</button>
+        `;
+    }else{
+        iniciadoSesion.innerHTML = "";
+    }
     usuarioActual = data.length ? data[0] : null;
 }
 
@@ -47,9 +56,10 @@ function imprimirGaleria(filtrarFavoritos = false) {
     const tapasPagina = tapasFiltradas.slice(inicio, fin);
 
     tapasPagina.forEach(tapa => {
-        const esFavorito = usuarioActual && usuarioActual.favoritos.includes(tapa.id);
+        const esFavorito = usuarioActual && usuarioActual.favoritos.includes(tapa.id);        
         const tarjeta = document.createElement('div');
         tarjeta.classList.add('card');
+        tarjeta.setAttribute("id", `card${tapa.id}`);
         tarjeta.innerHTML = `
             <div class='ratio ratio-4x3 overflow-hidden'>
                 <img class='card-img-top' src='${tapa.imagen || "img/placeholder.jpg"}' alt='${tapa.tapa}'>
@@ -96,19 +106,26 @@ async function eliminarBar(id) {
 }
 
 function editarBar(id) {
-    const tapa = tapas.find(t => t.id === id);
+    const tapa = tapas.find(t => t.id == id);
     if (!tapa) return;
 
-    const tarjeta = document.querySelector(`.card:has(button[onclick*='${id}']) .card-body`);
-    const botones = document.querySelector(`.card:has(button[onclick*='${id}']) .tarjeta-botones`);
+    const card = document.getElementById(`card${id}`);
+    card.classList.add('border-primary');
 
-    tarjeta.innerHTML = `
-        <input type='text' class='form-control mb-2' value='${tapa.bar}'>
-        <textarea class='form-control'>${tapa.tapa}</textarea>
-    `;
-    botones.innerHTML = `
-        <button class='btn btn-dark' onclick='guardarEdicion(${id})'>Guardar</button>
-        <button class='btn btn-light' onclick='imprimirGaleria()'>Cancelar</button>
+    card.innerHTML= `
+        <div class='ratio ratio-4x3 overflow-hidden'>
+            <img class='card-img-top' src='${tapa.imagen || "img/placeholder.jpg"}' alt='${tapa.tapa}'>
+        </div>
+        <div class='card-body'>
+            <input type="text" value="${tapa.bar}" class="form-control mb-2">
+            <textarea class='form-control'>${tapa.tapa}</textarea>
+        </div>
+        <div class='tarjeta-botones'>
+            ${usuarioActual?.rol === "admin" ? `
+                <button class='btn btn-dark edit' onclick='guardarEdicion(${id})'>Guardar</button>
+                <button class='btn btn-light delete' onclick='imprimirGaleria()'>Cancelar</button>
+            ` : ''}
+        </div>
     `;
 }
 
@@ -117,8 +134,11 @@ async function guardarEdicion(id) {
     const nuevoBar = tarjeta.children[0].value;
     const nuevaTapa = tarjeta.children[1].value;
 
+    console.log(nuevaTapa);
+    console.log(nuevoBar);
+
     if (nuevoBar && nuevaTapa) {
-        const tapa = tapas.find(t => t.id === id);
+        const tapa = tapas.find(t => t.id == id);
         tapa.bar = nuevoBar;
         tapa.tapa = nuevaTapa;
 
@@ -147,6 +167,12 @@ function actualizarNavegacion(totalTapas) {
         });
         listaPaginas.appendChild(boton);
     }
+}
+
+function cerrarSesion(){
+    sessionStorage.clear();
+    iniciadoSesion.innerHTML = "";
+    obtenerTapas();
 }
 
 checkFiltrar.addEventListener('change', () => {

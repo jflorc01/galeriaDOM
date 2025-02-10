@@ -120,10 +120,11 @@
       "pass": "admin123",
       "rol": "admin",
       "favoritos": [
-        3,
         6,
         12,
-        15
+        15,
+        5,
+        4
       ],
       "email": "admin@admin.com"
     },
@@ -134,9 +135,10 @@
       "rol": "user",
       "favoritos": [
         2,
-        4,
+        14,
         10,
-        14
+        9,
+        3
       ],
       "email": "pedro22@gmail.com"
     }
