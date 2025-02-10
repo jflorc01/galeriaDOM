@@ -1,100 +1,182 @@
-const API_URL = 'http://localhost/www/concursoTapas/api/';
+const API_URL = 'http://localhost:3000/';
+const TAPAS_POR_PAGINA = 12;
 const galeria = document.getElementById('galeria');
-const formularioAñadirBar = document.getElementById('formularioAñadirBar');
-const listaPaginas = document.getElementById('listaPaginas');
-const TAPAS_POR_PAGINA = 6;
-let totalPaginas = 0;
-let rol = "invitado";
-let busquedaActual = "";
+const listaPaginas = document.getElementById("listaPaginas");
+const checkFiltrar = document.getElementById("checkFiltrar");
+const iniciadoSesion = document.getElementById("iniciadoSesion");
 
-// Obtener todas las tapas para calcular el total de páginas
-async function obtenerTotalTapas(nombre="") {
-  try {
-    const respuesta = await fetch(`${API_URL}/tapas/?nombre=${nombre}`);
-    const tapas = await respuesta.json();
-    totalPaginas = Math.ceil(tapas.length / TAPAS_POR_PAGINA);
-    generarPaginacion(totalPaginas);
-  } catch (error) {
-    console.error('Error al obtener el total de tapas:', error);
-  }
-}
+// sessionStorage.clear;
+// sessionStorage.setItem("user", "admin");
+let tapas = [];
+let paginaActual = 1;
+let usuarioActual = null;
 
-// Obtener la lista de tapas desde la API con paginación
-async function obtenerTapas(pagina = 1, nombre = "") {
-  try {
-    const respuesta = await fetch(`${API_URL}/tapas/?pag=${pagina}&nombre=${nombre}`);
-    const tapas = await respuesta.json();
-    imprimirGaleria(tapas);
-  } catch (error) {
-    console.error('Error al obtener las tapas:', error);
-  }
-}
-
-// Función para mostrar la galería de tapas
-async function imprimirGaleria(tapas) {
-  galeria.innerHTML = '';
-  if (tapas.length === 0) {
-    galeria.innerHTML = `<p class='text-center display-6 text-danger w-100'>No hay bares para mostrar.</p>`;
-    return;
-  }
-
-  for (const tapa of tapas) {
-    const tarjeta = document.createElement('div');
-    tarjeta.classList.add('card');
-    tarjeta.innerHTML = `
-      <div class='ratio ratio-4x3 overflow-hidden'>
-        <img loading='lazy' class='card-img-top' src='${'img/' + tapa.id_tapa + '.webp' || 'img/placeholder.jpg'}' alt='${tapa.nombre}'>
-      </div>
-      <div class='card-body'>
-        <h3>${tapa.nombre_bar}</h3>
-        <p>${tapa.nombre}</p>
-      </div>
-      <div class='tarjeta-botones'>
-        <button class='btn btn-light' onclick="alertaIngredientes('${tapa.nombre}', '${tapa.ingredientes}')">Ingredientes</button>
-        <!-- <button class='btn btn-light' onclick='alert("hola")'>Eliminar</button> -->
-      </div>
-    `;
-    galeria.appendChild(tarjeta);
-  }
-}
-
-// Función para generar los botones de paginación
-function generarPaginacion(totalPaginas, paginaActual = 1) {
-  listaPaginas.innerHTML = '';
-  for (let i = 1; i <= totalPaginas; i++) {
-    const boton = document.createElement('button');
-    boton.classList.add('btn', 'btn-light', 'me-2');
-    boton.textContent = i;
-    if (i === paginaActual) {
-      boton.classList.add('active');
+async function obtenerUsuario() {
+    const user = sessionStorage.getItem("user");
+    console.log(user);
+    if (!user) return;
+    const response = await fetch(`${API_URL}usuarios?user=${user}`);
+    const data = await response.json();
+    if(data[0]){
+        iniciadoSesion.innerHTML = `
+            <h4 class="mt-2">Iniciado sesión como ${data[0].user}</h4>
+            <button class="btn btn-dark mt-2" onclick="cerrarSesion()">Cerrar sesión</button>
+        `;
+    }else{
+        iniciadoSesion.innerHTML = "";
     }
-    boton.addEventListener('click', () => obtenerTapas(i, busquedaActual));
-    listaPaginas.appendChild(boton);
-  }
+    usuarioActual = data.length ? data[0] : null;
 }
 
-// Aparece una alerta de SweetAlert con los ingredientes de la tapa
-function alertaIngredientes(nombre, ingredientes){
-  Swal.fire({
-    title: nombre,
-    text: `Ingredientes: ${ingredientes}`,
-    icon: "info"
-  });
+
+async function obtenerTapas() {
+    try {
+        const respuesta = await fetch(`${API_URL}tapas`);
+        tapas = await respuesta.json();
+        await obtenerUsuario();
+        imprimirGaleria();
+    } catch (error) {
+        console.error('Error al obtener las tapas:', error);
+    }
+}
+// obtenerUsuario().then(user => console.log(user));
+
+
+function imprimirGaleria(filtrarFavoritos = false) {
+    galeria.innerHTML = '';
+    
+    let tapasFiltradas = filtrarFavoritos && usuarioActual ? tapas.filter(tapa => usuarioActual.favoritos.includes(parseInt(tapa.id))) : tapas;
+    if (tapasFiltradas.length === 0) {
+        galeria.innerHTML = `<p class='text-center text-danger w-100'>No hay tapas para mostrar.</p>`;
+        return;
+    }
+
+    const inicio = TAPAS_POR_PAGINA * (paginaActual - 1);
+    const fin = inicio + TAPAS_POR_PAGINA;
+    const tapasPagina = tapasFiltradas.slice(inicio, fin);
+
+    tapasPagina.forEach(tapa => {
+        const esFavorito = usuarioActual && usuarioActual.favoritos.includes(parseInt(tapa.id));  
+        const tarjeta = document.createElement('div');
+        tarjeta.classList.add('card');
+        tarjeta.setAttribute("id", `card${tapa.id}`);
+        tarjeta.innerHTML = `
+            <div class='ratio ratio-4x3 overflow-hidden'>
+                <img class='card-img-top' src='${tapa.imagen || "img/placeholder.jpg"}' alt='${tapa.tapa}'>
+            </div>
+            <div class='card-body'>
+                <h3>${tapa.bar}</h3>
+                <p>${tapa.tapa}</p>
+            </div>
+            <div class='tarjeta-botones'>
+                ${usuarioActual ? `<button class='btn btn-light fav' onclick='alternarFavorito(${tapa.id})'>
+                    <img src='img/${esFavorito ? "heart-fill" : "heart"}.svg' alt='favorito'>
+                </button>` : ''}
+                ${usuarioActual?.rol === "admin" ? `
+                    <button class='btn btn-light edit' onclick='editarBar(${tapa.id})'>Editar</button>
+                    <button class='btn btn-light delete' onclick='eliminarBar(${tapa.id})'>Eliminar</button>
+                ` : ''}
+            </div>
+        `;
+        galeria.appendChild(tarjeta);
+    });
+
+    actualizarNavegacion(tapasFiltradas.length);
 }
 
-// Buscador
-document.getElementById('formularioBusqueda').addEventListener('submit', (e) => {
-  e.preventDefault();
-  busquedaActual = document.getElementById('inputBusqueda').value;
-  obtenerTotalTapas(busquedaActual);
-  obtenerTapas(1, busquedaActual);
+async function alternarFavorito(id) {
+    if (!usuarioActual) return;
+    let nuevosFavoritos = usuarioActual.favoritos.includes(id)
+        ? usuarioActual.favoritos.filter(fav => fav != id)
+        : [...usuarioActual.favoritos, id];
+    
+    await fetch(`${API_URL}usuarios/${usuarioActual.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ favoritos: nuevosFavoritos })
+    });
+    usuarioActual.favoritos = nuevosFavoritos;
+    imprimirGaleria(checkFiltrar.checked);
+}
+
+async function eliminarBar(id) {
+    await fetch(`${API_URL}tapas/${id}`, { method: 'DELETE' });
+    tapas = tapas.filter(tapa => tapa.id !== id);
+    imprimirGaleria(checkFiltrar.checked);
+}
+
+function editarBar(id) {
+    const tapa = tapas.find(t => t.id == id);
+    if (!tapa) return;
+
+    const card = document.getElementById(`card${id}`);
+    card.classList.add('border-primary');
+
+    card.innerHTML= `
+        <div class='ratio ratio-4x3 overflow-hidden'>
+            <img class='card-img-top' src='${tapa.imagen || "img/placeholder.jpg"}' alt='${tapa.tapa}'>
+        </div>
+        <div class='card-body'>
+            <input type="text" id="editBar${id}" value="${tapa.bar}" class="form-control mb-2">
+            <textarea id="editTapa${id}" class='form-control'>${tapa.tapa}</textarea>
+        </div>
+        <div class='tarjeta-botones'>
+            ${usuarioActual?.rol === "admin" ? `
+                <button class='btn btn-dark edit' onclick='guardarEdicion(${id})'>Guardar</button>
+                <button class='btn btn-light delete' onclick='imprimirGaleria()'>Cancelar</button>
+            ` : ''}
+        </div>
+    `;
+}
+
+async function guardarEdicion(id) {
+    const nuevoBar = document.getElementById(`editBar${id}`).value;
+    const nuevaTapa = document.getElementById(`editTapa${id}`).value;
+
+    if (nuevoBar && nuevaTapa) {
+        const tapa = tapas.find(t => t.id == id);
+        tapa.bar = nuevoBar;
+        tapa.tapa = nuevaTapa;
+
+        await fetch(`${API_URL}tapas/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(tapa)
+        });
+
+        imprimirGaleria(checkFiltrar.checked);
+    }
+}
+
+function actualizarNavegacion(totalTapas) {
+    listaPaginas.innerHTML = '';
+    const totalPaginas = Math.ceil(totalTapas / TAPAS_POR_PAGINA);
+
+    for (let i = 1; i <= totalPaginas; i++) {
+        const boton = document.createElement('button');
+        boton.classList.add('btn', 'btn-light', 'mx-1', 'btnPaginas');
+        boton.textContent = i;
+        if (i === paginaActual) boton.classList.add('active');
+        boton.addEventListener('click', () => {
+            paginaActual = i;
+            imprimirGaleria(checkFiltrar.checked);
+        });
+        listaPaginas.appendChild(boton);
+    }
+}
+
+function cerrarSesion(){
+    sessionStorage.clear();
+    iniciadoSesion.innerHTML = "";
+
+    // Refrescamos la página para que se oculten los botones
+    location.reload();
+}
+
+checkFiltrar.addEventListener('change', () => {
+    paginaActual = 1;
+    imprimirGaleria(checkFiltrar.checked);
 });
 
-// Función principal para inicializar la aplicación
-async function main() {
-  await obtenerTotalTapas();
-  await obtenerTapas();
-}
-
-// Llamar a la función principal
-main();
+console.log(usuarioActual);
+obtenerTapas();
